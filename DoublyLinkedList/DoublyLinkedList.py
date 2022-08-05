@@ -132,7 +132,6 @@ class DoublyLinkedList:
  			self.tail = None 
  			print("The DLL has been successfully deleted, printing it.")
  			print([node.value for node in doubleLinkedList])
- 			
 
 #Testing creation
 doubleLinkedList= DoublyLinkedList()
