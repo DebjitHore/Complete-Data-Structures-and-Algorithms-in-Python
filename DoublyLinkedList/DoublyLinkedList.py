@@ -84,6 +84,56 @@ class DoublyLinkedList:
  				tempNode=tempNode.next
  			if counter==0:
  				print("Value does not exist")
+
+ 	#Delete a node from a Double Linked List
+
+ 	def deleteNodeDLL(self, location):
+ 		if self.head is None:
+ 			print("Doubly Linked List does not exist")
+ 		else:
+ 			if location == 0: #delete the first node, has two cases, i.e. if there is just one or multiple nodes in the Doubly Linked List
+ 				if self.head == self.tail:
+ 					self.head = None 
+ 					self.tail = None 
+ 				else:
+ 					self.head= self.head.next 
+ 					self.head.prev= None
+ 			elif location==-1:
+ 				if self.head == self.tail:
+ 					self.head = None 
+ 					self.tail = None
+ 				else:
+ 					self.tail= self.tail.prev
+ 					self.tail.next= None
+ 			else:
+ 				tempNode= self.head
+ 				index=0
+ 				while index<location-1:
+ 					tempNode= tempNode.next
+ 					index+=1
+ 				nextNode = tempNode.next
+ 				tempNode.next = nextNode.next
+ 				nextNode.next.prev = tempNode
+ 	def deleteEntireDLL(self):
+ 		'''
+ 		Setting the head and tail to None does not work for a Doubly Linked List does not work 
+ 		because the nodes are referenced back and forth, so we need to set all nodes 
+ 		references to null explicitly.
+
+ 		'''
+ 		if self.head == None:
+ 			print("The double linked list does not exist")
+ 		else:
+ 			tempNode = self.head
+ 			while tempNode:
+ 				tempNode.prev= None
+ 				tempNode= tempNode.next 
+ 			self.head= None 
+ 			self.tail = None 
+ 			print("The DLL has been successfully deleted, printing it.")
+ 			print([node.value for node in doubleLinkedList])
+ 			
+
 #Testing creation
 doubleLinkedList= DoublyLinkedList()
 doubleLinkedList.createDLL(5)
@@ -106,3 +156,11 @@ doubleLinkedList.reverseTraversal()
 
 doubleLinkedList.searchLinkedList(5)
 doubleLinkedList.searchLinkedList(12)
+
+#testing out deletion 
+
+doubleLinkedList.deleteNodeDLL(-1)
+
+print([node.value for node in doubleLinkedList])
+
+doubleLinkedList.deleteEntireDLL()
