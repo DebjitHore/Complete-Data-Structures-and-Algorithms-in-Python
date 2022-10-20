@@ -40,4 +40,4 @@ def binarySearch(sortedArray, value):
 
 #print(linearSearch([10, 30, 50, 20, 70, 55, 72], 90))
 
-print(binarySearch([1, 3, 6, 9, 12, 15, 32, 77, 93, 95, 99], 94))
+print(binarySearch([-1,0,3,5,9,12], 9))

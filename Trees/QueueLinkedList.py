@@ -64,18 +64,3 @@ class Queue:
     def delete(self):
     	self.linkedList.head= None
     	self.linkedList.tail = None
-custQueue= Queue()
-custQueue.enqueue(1)
-custQueue.enqueue(11)
-custQueue.enqueue(111)
-print(custQueue)
-
-print ("-------")
-print("De-queueing")
-print(custQueue.dequeue())
-print(custQueue)
-print("Peeking")
-print(custQueue.peek())
-print("Deleting queue")
-print(custQueue.delete())
-print(custQueue)

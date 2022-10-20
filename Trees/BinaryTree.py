@@ -1,9 +1,9 @@
 
 # LinkedList implementation
-
+from collections import deque
 #Creation 
 #O(1) space and time complexity 
-import QueueLinkedList as queue
+ 
 class treeNode:
 	def __init__(self, data):
 		self.data= data
@@ -40,17 +40,122 @@ def postOrderTraversal(rootNode):
 	print(rootNode.data)
 
 def levelOrderTraversal(rootNode):
+  if not rootNode:
+    return
+  else:
+  	customQueue= deque()
+  	customQueue.append(rootNode)
+  	while len(customQueue)>0:
+  		root= customQueue.popleft()
+  		print(root.data)
+  		if root.leftChild is not None:
+  			customQueue.append(root.leftChild)
+  		if root.rightChild is not None:
+  			customQueue.append(root.rightChild)
+
+def searchNodeBT(rootNode, nodeValue):
+	#we will use levelOrderTraversal
+	if not rootNode:
+		return "Binary Tree does not exist"
+	else:
+		customQueue= deque()
+		customQueue.append(rootNode)
+		while len(customQueue)>0:
+			 node= customQueue.popleft()
+			 if node.data == nodeValue:
+			 	 return "Node exists in Binary Tree"
+			 if node.leftChild is not None:
+			 	customQueue.append(node.leftChild)
+			 if node.rightChild is not None:
+			 	customQueue.append(node.rightChild)
+		return "Node does not exist in Binary Tree "
+
+def insertNode(rootNode, newNode):
+	 if not rootNode:
+	 	rootNode= newNode
+	 else:
+	 	customQueue= deque()
+	 	customQueue.append(rootNode)
+	 	while len(customQueue)>0:
+	 		root= customQueue.popleft()
+	 		if root.leftChild is not None:
+	 			customQueue.append(root.leftChild)
+	 		else:
+	 			root.leftChild = newNode
+	 			return "Successfully inserted"
+	 		if root.rightChild is not None:
+	 			customQueue.append(root.rightChild)
+	 		else:
+	 			root.rightChild= newNode
+	 			return "Successfully inserted"
+
+
+
+def getDeepestNode(rootNode):
 	if not rootNode:
 		return
-	customQueue= queue.Queue()
-	customQueue.enqueue(rootNode)
-	while not(customQueue.isEmpty()):
-		root= customQueue.dequeue()
-		print(root.value.data)
-		if root.value.leftChild is not None:
-			customQueue.enqueue(root.value.leftChild)
-		if root.value.rightChild is not None:
-			customQueue.enqueue(root.value.rightChild)
+	else:
+		customQueue= deque()
+		customQueue.append(rootNode)
+		while len(customQueue)>0:
+			root = customQueue.popleft()
+			if root.leftChild is not None:
+				customQueue.append(root.leftChild)
+			if root.rightChild is not None:
+				customQueue.append(root.rightChild)
+		deepestNode= root
+		return deepestNode
+
+def deleteDeepestNode(rootNode, deepestNode):
+	if not rootNode:
+		return 
+	else:
+		customQueue= deque()
+		customQueue.append(rootNode)
+		while len(customQueue)>0:
+			root= customQueue.popleft()
+			if root.data== deepestNode:
+				root.data= None
+				return
+			if root.rightChild is not None:
+				if root.rightChild == deepestNode:
+					root.rightChild = None 
+					return
+				else:
+					customQueue.append(rightChild)
+			if root.leftChild is not None:
+				if root.leftChild is deepestNode:
+					root.leftChild = None
+					return 
+				else:
+					customQueue.append(root.leftChild)
+def deleteNodeBT(rootNode, node):
+	if not rootNode:
+		return "Binary Tree does not exist"
+	else:
+		customQueue = deque()
+		customQueue.append(rootNode)
+		while len(customQueue)>0:
+			root= customQueue.popleft()
+			if root.data == node:
+				dNode= getDeepestNode(rootNode)
+				root.data = dNode.data
+				deleteDeepestNode(rootNode, dNode)
+				return "Node has been successfully deleted"
+			if root.rightChild is not None:
+				customQueue.append(root.rightChild)
+			if root.leftChild is not None:
+				customQueue.append(root.leftChild)
+		return "Failed to delete node from given Binary Tree "
+
+def deleteEntireBinaryTree(rootNode):
+	if not rootNode:
+		return "BT does not exist"
+	else:
+		rootNode.rightChild=None
+		rootNode.leftChild = None 
+		rootNode.data=None
+		return "BT successfully deleted"
 
 
 
@@ -80,6 +185,25 @@ inOrderTraversal(newBT)
 print('\n')
 postOrderTraversal(newBT)
 print('\n')
+levelOrderTraversal(newBT) 
+print('\n')
+print(searchNodeBT(newBT, "Tea"))
+print('\n')
+print(searchNodeBT(newBT, "Cola"))
+print('\n')
+newNode= treeNode("DarjeelingTea")
+print(insertNode(newBT, newNode))
+print('\n')
+levelOrderTraversal(newBT)
+print('\n')
+print(getDeepestNode(newBT))
+print('\n')
+#deepestNode= getDeepestNode(newBT)
+#deleteDeepestNode(newBT, deepestNode)
+deleteNodeBT(newBT, 'Tea')
+levelOrderTraversal(newBT)
+print('\n')
+deleteEntireBinaryTree(newBT)
 levelOrderTraversal(newBT)
 
  
