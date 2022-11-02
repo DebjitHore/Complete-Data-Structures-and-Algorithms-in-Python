@@ -31,9 +31,29 @@ class Graph:
 				self.gdict[otherVertex].remove(vertex)
 			del self.gdict[vertex]
 
+	def bfs(self, vertex):
+		visited=[vertex]
+		queue=[vertex]
+		while len(queue)>0:
+			deVertex=queue.pop(0)
+			print(deVertex)
+			for adjacentVertex in self.gdict[deVertex]:
+				if adjacentVertex not in visited:
+					visited.append(adjacentVertex)
+					queue.append(adjacentVertex)
 
 
 
+	def dfs(self, vertex):
+		visited=[vertex]
+		stack= [vertex]
+		while len(stack)>0:
+			popVertex= stack.pop()
+			print(popVertex)
+			for adjacentVertex in self.gdict[popVertex]:
+				if adjacentVertex not in visited:
+					visited.append(adjacentVertex)
+					stack.append(adjacentVertex)
 
 
 customDict= {"a" : ["b", "c"],
@@ -57,4 +77,8 @@ print('\n Removing Vertex ')
 graph.removeVertex('d')
 print(graph.gdict)
 
+
+graph.bfs('a')
+print('\n')
+graph.dfs('a')
 
